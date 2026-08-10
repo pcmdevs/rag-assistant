@@ -15,7 +15,7 @@ from src.vector_store import add_documents_to_vector_store
 # =========================================================
 
 st.set_page_config(
-    page_title="RAG Knowledge Assistant",
+    page_title="RAG Assistant",
     page_icon="📚",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -29,10 +29,6 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-
-    /* -----------------------------------------------------
-       Página
-    ----------------------------------------------------- */
 
     .stApp {
         background: linear-gradient(
@@ -49,11 +45,6 @@ st.markdown(
         padding-bottom: 4rem;
     }
 
-
-    /* -----------------------------------------------------
-       Título
-    ----------------------------------------------------- */
-
     .rag-header {
         padding: 1.2rem 0 1.6rem 0;
     }
@@ -68,7 +59,6 @@ st.markdown(
             #8b5cf6,
             #22d3ee
         );
-
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
@@ -78,18 +68,11 @@ st.markdown(
         font-size: 1.05rem;
     }
 
-
-    /* -----------------------------------------------------
-       Cards
-    ----------------------------------------------------- */
-
     .metric-card {
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
-
         padding: 1rem 1.2rem;
-
         margin-bottom: 0.7rem;
     }
 
@@ -104,73 +87,36 @@ st.markdown(
         color: #f3f4f6;
     }
 
-
-    /* -----------------------------------------------------
-       Documentos
-    ----------------------------------------------------- */
-
     .document-card {
         background: rgba(255,255,255,0.035);
-
         border: 1px solid rgba(255,255,255,0.07);
-
         padding: 0.75rem;
-
         border-radius: 10px;
-
         margin-bottom: 0.5rem;
-
         font-size: 0.86rem;
     }
 
-
-    /* -----------------------------------------------------
-       Fontes
-    ----------------------------------------------------- */
-
     .source-card {
         background: rgba(96, 165, 250, 0.08);
-
         border-left: 3px solid #60a5fa;
-
         border-radius: 8px;
-
         padding: 0.65rem 0.9rem;
-
         margin-bottom: 0.5rem;
     }
-
-
-    /* -----------------------------------------------------
-       Sidebar
-    ----------------------------------------------------- */
 
     section[data-testid="stSidebar"] {
         background: #0d111a;
         border-right: 1px solid rgba(255,255,255,0.08);
     }
 
-
-    /* -----------------------------------------------------
-       Chat
-    ----------------------------------------------------- */
-
     [data-testid="stChatMessage"] {
         border-radius: 14px;
-
         padding: 0.4rem;
-
         margin-bottom: 0.7rem;
     }
 
-
-    /* -----------------------------------------------------
-       Botões
-    ----------------------------------------------------- */
-
     div.stButton > button {
         border-radius: 9px;
-
         transition: all 0.2s ease;
     }
 
@@ -178,18 +124,10 @@ st.markdown(
         transform: translateY(-1px);
     }
 
-
-    /* -----------------------------------------------------
-       Rodapé
-    ----------------------------------------------------- */
-
     .footer {
         margin-top: 4rem;
-
         text-align: center;
-
         color: #6b7280;
-
         font-size: 0.78rem;
     }
 
@@ -276,11 +214,9 @@ def show_sources(
 
         for source in sources:
 
-            filename = (
-                source.get(
-                    "filename",
-                    "Fonte desconhecida",
-                )
+            filename = source.get(
+                "filename",
+                "Fonte desconhecida",
             )
 
             page = source.get(
@@ -365,10 +301,6 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-    # -----------------------------------------------------
-    # LISTA DE DOCUMENTOS
-    # -----------------------------------------------------
-
     if pdf_files:
 
         st.markdown(
@@ -395,10 +327,6 @@ with st.sidebar:
         )
 
     st.divider()
-
-    # -----------------------------------------------------
-    # UPLOAD
-    # -----------------------------------------------------
 
     st.markdown(
         "### ➕ Adicionar documento"
@@ -455,10 +383,6 @@ with st.sidebar:
 
     st.divider()
 
-    # -----------------------------------------------------
-    # CONTROLES
-    # -----------------------------------------------------
-
     st.markdown(
         "### ⚙️ Controles"
     )
@@ -488,7 +412,7 @@ st.markdown(
     <div class="rag-header">
 
         <div class="rag-title">
-            RAG Knowledge Assistant
+            RAG Assistant
         </div>
 
         <div class="rag-subtitle">
@@ -507,7 +431,6 @@ st.markdown(
 # =========================================================
 
 pdf_files = get_pdf_files()
-
 
 col1, col2, col3 = st.columns(3)
 
@@ -610,10 +533,6 @@ if question:
         }
     )
 
-    # -----------------------------------------------------
-    # Usuário
-    # -----------------------------------------------------
-
     with st.chat_message(
         "user"
     ):
@@ -621,10 +540,6 @@ if question:
         st.markdown(
             question
         )
-
-    # -----------------------------------------------------
-    # Assistente
-    # -----------------------------------------------------
 
     with st.chat_message(
         "assistant"
@@ -748,7 +663,7 @@ st.markdown(
     """
     <div class="footer">
 
-        RAG Knowledge Assistant
+        RAG Assistant
         • Python
         • LangChain
         • Gemini
