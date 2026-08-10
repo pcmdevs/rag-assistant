@@ -23,101 +23,175 @@ st.set_page_config(
 
 
 # =========================================================
-# ESTILO VISUAL
+# CSS
 # =========================================================
 
-st.markdown(
+st.html(
     """
     <style>
 
     .stApp {
-        background: linear-gradient(
-            135deg,
-            #0b0f19 0%,
-            #111827 55%,
-            #0d1321 100%
-        );
+        background:
+            radial-gradient(
+                circle at top right,
+                rgba(99, 102, 241, 0.10),
+                transparent 30%
+            ),
+            linear-gradient(
+                135deg,
+                #080c14 0%,
+                #0d1422 55%,
+                #090e18 100%
+            );
     }
 
     .block-container {
-        max-width: 1150px;
-        padding-top: 2.5rem;
+        max-width: 1180px;
+        padding-top: 2rem;
         padding-bottom: 4rem;
     }
 
-    .rag-header {
-        padding: 1.2rem 0 1.6rem 0;
+    section[data-testid="stSidebar"] {
+        background: #0c111b;
+        border-right: 1px solid rgba(255, 255, 255, 0.07);
     }
 
-    .rag-title {
-        font-size: 2.6rem;
+    .hero {
+        padding: 1.6rem 0 1.2rem 0;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+        line-height: 1.1;
         font-weight: 800;
-        margin-bottom: 0.3rem;
+
         background: linear-gradient(
             90deg,
             #60a5fa,
             #8b5cf6,
             #22d3ee
         );
+
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-    }
 
-    .rag-subtitle {
-        color: #9ca3af;
-        font-size: 1.05rem;
-    }
-
-    .metric-card {
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 14px;
-        padding: 1rem 1.2rem;
         margin-bottom: 0.7rem;
     }
 
-    .metric-label {
-        font-size: 0.8rem;
-        color: #9ca3af;
+    .hero-subtitle {
+        color: #a5b4c7;
+        font-size: 1.08rem;
+        max-width: 760px;
+        line-height: 1.6;
     }
 
-    .metric-value {
-        font-size: 1.5rem;
+    .sidebar-title {
+        font-size: 1.25rem;
         font-weight: 700;
-        color: #f3f4f6;
+        color: #f8fafc;
+        margin-bottom: 1rem;
+    }
+
+    .sidebar-metric {
+        padding: 1rem;
+        border-radius: 14px;
+
+        background: rgba(255, 255, 255, 0.035);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+
+        margin-bottom: 1rem;
+    }
+
+    .sidebar-metric-label {
+        color: #94a3b8;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        font-weight: 600;
+    }
+
+    .sidebar-metric-value {
+        color: #f8fafc;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-top: 0.2rem;
     }
 
     .document-card {
-        background: rgba(255,255,255,0.035);
-        border: 1px solid rgba(255,255,255,0.07);
-        padding: 0.75rem;
+        padding: 0.75rem 0.9rem;
+        margin-bottom: 0.55rem;
+
         border-radius: 10px;
-        margin-bottom: 0.5rem;
-        font-size: 0.86rem;
+
+        background: rgba(255, 255, 255, 0.035);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+
+        color: #dbe4f0;
+        font-size: 0.84rem;
+
+        overflow-wrap: anywhere;
+    }
+
+    .welcome-card {
+        padding: 1.4rem 1.5rem;
+
+        border-radius: 16px;
+
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .welcome-title {
+        color: #f8fafc;
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin-bottom: 0.6rem;
+    }
+
+    .welcome-text {
+        color: #9ca3af;
+        line-height: 1.6;
     }
 
     .source-card {
-        background: rgba(96, 165, 250, 0.08);
+        padding: 0.75rem 0.9rem;
+
+        border-radius: 9px;
+
+        background: rgba(96, 165, 250, 0.07);
         border-left: 3px solid #60a5fa;
-        border-radius: 8px;
-        padding: 0.65rem 0.9rem;
-        margin-bottom: 0.5rem;
+
+        margin-bottom: 0.55rem;
+
+        color: #dbeafe;
     }
 
-    section[data-testid="stSidebar"] {
-        background: #0d111a;
-        border-right: 1px solid rgba(255,255,255,0.08);
+    .source-meta {
+        color: #94a3b8;
+        font-size: 0.8rem;
+        margin-top: 0.2rem;
+    }
+
+    [data-testid="stMetric"] {
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid rgba(255, 255, 255, 0.065);
+        border-radius: 14px;
+
+        padding: 1rem 1.2rem;
     }
 
     [data-testid="stChatMessage"] {
         border-radius: 14px;
-        padding: 0.4rem;
+        padding: 0.55rem;
         margin-bottom: 0.7rem;
     }
 
     div.stButton > button {
         border-radius: 9px;
-        transition: all 0.2s ease;
+        min-height: 2.6rem;
+        transition: 0.2s ease;
     }
 
     div.stButton > button:hover {
@@ -125,24 +199,24 @@ st.markdown(
     }
 
     .footer {
-        margin-top: 4rem;
-        text-align: center;
-        color: #6b7280;
+        color: #64748b;
         font-size: 0.78rem;
+        text-align: center;
+
+        padding-top: 3.5rem;
+        padding-bottom: 1rem;
     }
 
     </style>
-    """,
-    unsafe_allow_html=True,
+    """
 )
 
 
 # =========================================================
-# FUNÇÕES AUXILIARES
+# FUNÇÕES
 # =========================================================
 
 def get_pdf_files() -> list[Path]:
-
     if not DOCUMENTS_DIR.exists():
         return []
 
@@ -152,22 +226,14 @@ def get_pdf_files() -> list[Path]:
 
 
 def save_uploaded_file(uploaded_file) -> Path:
-
     DOCUMENTS_DIR.mkdir(
         parents=True,
         exist_ok=True,
     )
 
-    destination = (
-        DOCUMENTS_DIR
-        / uploaded_file.name
-    )
+    destination = DOCUMENTS_DIR / uploaded_file.name
 
-    with open(
-        destination,
-        "wb",
-    ) as file:
-
+    with open(destination, "wb") as file:
         file.write(
             uploaded_file.getbuffer()
         )
@@ -176,17 +242,14 @@ def save_uploaded_file(uploaded_file) -> Path:
 
 
 def index_documents() -> dict:
-
     documents = load_all_pdfs()
 
     chunks = split_documents(
         documents
     )
 
-    processed = (
-        add_documents_to_vector_store(
-            chunks
-        )
+    processed = add_documents_to_vector_store(
+        chunks
     )
 
     return {
@@ -197,23 +260,15 @@ def index_documents() -> dict:
 
 
 def clear_chat():
-
     st.session_state.messages = []
 
 
-def show_sources(
-    sources: list,
-):
-
+def show_sources(sources: list):
     if not sources:
         return
 
-    with st.expander(
-        "📄 Fontes utilizadas"
-    ):
-
+    with st.expander("📄 Fontes utilizadas"):
         for source in sources:
-
             filename = source.get(
                 "filename",
                 "Fonte desconhecida",
@@ -229,29 +284,26 @@ def show_sources(
                 0,
             )
 
-            st.markdown(
+            st.html(
                 f"""
                 <div class="source-card">
-
-                <strong>📄 {filename}</strong><br>
-
-                Página {page}
-                &nbsp;•&nbsp;
-                Relevância {score:.4f}
-
+                    <strong>📄 {filename}</strong>
+                    <div class="source-meta">
+                        Página {page}
+                        &nbsp;•&nbsp;
+                        Relevância {score:.4f}
+                    </div>
                 </div>
-                """,
-                unsafe_allow_html=True,
+                """
             )
 
 
 def detect_quota_error(
     error: Exception,
 ) -> bool:
-
     error_text = str(error).lower()
 
-    quota_terms = [
+    terms = [
         "resource_exhausted",
         "quota exceeded",
         "429",
@@ -259,7 +311,7 @@ def detect_quota_error(
 
     return any(
         term in error_text
-        for term in quota_terms
+        for term in terms
     )
 
 
@@ -268,7 +320,6 @@ def detect_quota_error(
 # =========================================================
 
 if "messages" not in st.session_state:
-
     st.session_state.messages = []
 
 
@@ -278,46 +329,46 @@ if "messages" not in st.session_state:
 
 with st.sidebar:
 
-    st.markdown(
-        "## 📚 Base de conhecimento"
+    st.html(
+        """
+        <div class="sidebar-title">
+            📚 Base de conhecimento
+        </div>
+        """
     )
 
     pdf_files = get_pdf_files()
 
-    st.markdown(
+    st.html(
         f"""
-        <div class="metric-card">
+        <div class="sidebar-metric">
 
-            <div class="metric-label">
+            <div class="sidebar-metric-label">
                 DOCUMENTOS INDEXADOS
             </div>
 
-            <div class="metric-value">
+            <div class="sidebar-metric-value">
                 {len(pdf_files)}
             </div>
 
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
     if pdf_files:
 
-        st.markdown(
-            "### Documentos"
+        st.subheader(
+            "Documentos"
         )
 
         for pdf_file in pdf_files:
 
-            st.markdown(
+            st.html(
                 f"""
                 <div class="document-card">
-
-                📄 {pdf_file.name}
-
+                    📄 {pdf_file.name}
                 </div>
-                """,
-                unsafe_allow_html=True,
+                """
             )
 
     else:
@@ -328,12 +379,16 @@ with st.sidebar:
 
     st.divider()
 
-    st.markdown(
-        "### ➕ Adicionar documento"
+    # =====================================================
+    # UPLOAD
+    # =====================================================
+
+    st.subheader(
+        "➕ Adicionar documento"
     )
 
     uploaded_file = st.file_uploader(
-        "Selecione um arquivo PDF",
+        "Selecione um PDF",
         type=["pdf"],
         label_visibility="collapsed",
     )
@@ -360,12 +415,12 @@ with st.sidebar:
                     )
 
                 st.success(
-                    "Documento indexado!"
+                    "Documento indexado com sucesso!"
                 )
 
                 st.caption(
-                    f"{result['pages']} páginas • "
-                    f"{result['chunks']} chunks"
+                    f"{result['pages']} páginas "
+                    f"• {result['chunks']} chunks"
                 )
 
                 st.rerun()
@@ -373,8 +428,8 @@ with st.sidebar:
             except Exception as error:
 
                 st.error(
-                    "Não foi possível "
-                    "processar o documento."
+                    "Não foi possível processar "
+                    "o documento."
                 )
 
                 st.caption(
@@ -383,8 +438,12 @@ with st.sidebar:
 
     st.divider()
 
-    st.markdown(
-        "### ⚙️ Controles"
+    # =====================================================
+    # CONTROLES
+    # =====================================================
+
+    st.subheader(
+        "⚙️ Controles"
     )
 
     if st.button(
@@ -404,30 +463,31 @@ with st.sidebar:
 
 
 # =========================================================
-# CABEÇALHO
+# HERO
 # =========================================================
 
-st.markdown(
+st.html(
     """
-    <div class="rag-header">
+    <div class="hero">
 
-        <div class="rag-title">
+        <div class="hero-title">
             RAG Assistant
         </div>
 
-        <div class="rag-subtitle">
-            Converse com seus documentos utilizando
-            busca semântica e Inteligência Artificial.
+        <div class="hero-subtitle">
+            Converse com seus documentos usando Inteligência
+            Artificial e busca semântica.
+            Faça upload de PDFs, encontre informações relevantes
+            e receba respostas baseadas no conteúdo da sua base.
         </div>
 
     </div>
-    """,
-    unsafe_allow_html=True,
+    """
 )
 
 
 # =========================================================
-# STATUS DA BASE
+# INDICADORES
 # =========================================================
 
 pdf_files = get_pdf_files()
@@ -436,7 +496,6 @@ col1, col2, col3 = st.columns(3)
 
 
 with col1:
-
     st.metric(
         "📄 Documentos",
         len(pdf_files),
@@ -444,17 +503,15 @@ with col1:
 
 
 with col2:
-
     st.metric(
-        "🧠 IA",
+        "🧠 Modelo",
         "Gemini",
     )
 
 
 with col3:
-
     st.metric(
-        "🔎 Busca",
+        "🔎 Recuperação",
         "Semântica",
     )
 
@@ -463,27 +520,39 @@ st.divider()
 
 
 # =========================================================
-# ESTADO VAZIO
+# ESTADO INICIAL
 # =========================================================
 
 if not pdf_files:
 
     st.info(
-        "👈 Adicione um PDF na barra lateral "
-        "para começar."
+        "👈 Adicione um documento PDF "
+        "na barra lateral para começar."
     )
 
 
 elif not st.session_state.messages:
 
+    st.html(
+        """
+        <div class="welcome-card">
+
+            <div class="welcome-title">
+                👋 Como posso ajudar?
+            </div>
+
+            <div class="welcome-text">
+                Faça perguntas sobre os documentos disponíveis
+                na sua base de conhecimento.
+            </div>
+
+        </div>
+        """
+    )
+
     st.markdown(
         """
-        ### 👋 Como posso ajudar?
-
-        Faça perguntas sobre os documentos
-        disponíveis na base.
-
-        **Exemplos:**
+        **Experimente perguntar:**
 
         - Qual é o valor do plano Premium?
         - Como funciona a matrícula?
@@ -494,7 +563,7 @@ elif not st.session_state.messages:
 
 
 # =========================================================
-# HISTÓRICO DO CHAT
+# HISTÓRICO
 # =========================================================
 
 for message in st.session_state.messages:
@@ -516,7 +585,7 @@ for message in st.session_state.messages:
 
 
 # =========================================================
-# INPUT
+# CHAT
 # =========================================================
 
 question = st.chat_input(
@@ -659,18 +728,22 @@ if question:
 # RODAPÉ
 # =========================================================
 
-st.markdown(
+st.html(
     """
     <div class="footer">
 
         RAG Assistant
-        • Python
-        • LangChain
-        • Gemini
-        • ChromaDB
-        • Streamlit
+        &nbsp;•&nbsp;
+        Python
+        &nbsp;•&nbsp;
+        LangChain
+        &nbsp;•&nbsp;
+        Gemini
+        &nbsp;•&nbsp;
+        ChromaDB
+        &nbsp;•&nbsp;
+        Streamlit
 
     </div>
-    """,
-    unsafe_allow_html=True,
+    """
 )
