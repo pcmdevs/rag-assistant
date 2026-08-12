@@ -1,160 +1,19 @@
-# 📚 RAG Assistant
+O projeto **RAG Assistant** foi desenvolvido para permitir que um usuário faça perguntas sobre documentos PDF e receba respostas baseadas no conteúdo desses arquivos.
 
-Assistente inteligente capaz de **responder perguntas com base em documentos PDF**, utilizando Inteligência Artificial e busca semântica.
+A arquitetura utilizada foi RAG, que significa **Retrieval-Augmented Generation**. A ideia principal é que a inteligência artificial não responda apenas com base no conhecimento geral do modelo. Antes de gerar uma resposta, o sistema procura informações relevantes dentro dos documentos enviados pelo usuário.
 
-O sistema encontra as informações mais relevantes na base de documentos, gera uma resposta objetiva e apresenta as fontes utilizadas.
+O fluxo começa com o carregamento dos PDFs. Esses documentos são lidos e divididos em partes menores chamadas **chunks**. Essa divisão é importante porque trabalhar com documentos inteiros dificultaria a busca por informações específicas.
 
----
+Depois, cada chunk é transformado em um **embedding**, que é uma representação numérica do significado do texto. Esses embeddings são armazenados no ChromaDB, que funciona como um banco vetorial.
 
-## 🖥️ Demonstração
+Quando o usuário faz uma pergunta, essa pergunta também é transformada em embedding. O sistema compara o significado da pergunta com os chunks armazenados no banco e recupera os trechos semanticamente mais relevantes.
 
-![Demonstração do RAG Assistant](./assets/rag-assistant-demo.png)
+Esses trechos são então enviados como contexto para o Google Gemini, junto com a pergunta do usuário. O modelo gera uma resposta utilizando as informações recuperadas dos documentos.
 
----
+O projeto também preserva metadados, como nome do arquivo e página, permitindo mostrar as fontes utilizadas na resposta.
 
-## 💡 Sobre o projeto
+Além do pipeline RAG, foi criada uma interface web com Streamlit, onde o usuário pode enviar novos PDFs, visualizar os documentos disponíveis, fazer perguntas e consultar as fontes.
 
-Empresas armazenam informações importantes em manuais, políticas, procedimentos e outros documentos.
+Durante o desenvolvimento também foram implementados tratamento de erros, logs, testes dos principais componentes, controle de duplicação no banco vetorial e ajustes de relevância para melhorar a recuperação das informações.
 
-Encontrar uma informação específica nesses arquivos pode ser demorado.
-
-O **RAG Assistant** permite transformar documentos PDF em uma base de conhecimento consultável através de perguntas em linguagem natural.
-
-Por exemplo:
-
-> **"Como funciona a matrícula?"**
-
-A aplicação pesquisa os documentos, encontra os trechos relacionados à pergunta e utiliza Inteligência Artificial para gerar uma resposta baseada no conteúdo encontrado.
-
----
-
-## ✨ Principais funcionalidades
-
-- 📄 Upload de documentos PDF
-- 💬 Perguntas em linguagem natural
-- 🔎 Busca semântica nos documentos
-- 🤖 Respostas geradas com Inteligência Artificial
-- 📚 Exibição das fontes utilizadas
-- 💾 Armazenamento vetorial dos documentos
-- 🖥️ Interface web interativa
-- ⚠️ Tratamento de erros e limites da API
-
----
-
-## ⚙️ Como funciona
-
-```text
-Documento PDF
-      ↓
-Processamento e divisão do conteúdo
-      ↓
-Geração de embeddings
-      ↓
-Armazenamento no ChromaDB
-      ↓
-Busca semântica
-      ↓
-Contexto enviado ao Gemini
-      ↓
-Resposta + fontes
-```
-
-A aplicação utiliza a arquitetura **RAG (Retrieval-Augmented Generation)**.
-
-Em vez de depender apenas do conhecimento do modelo de IA, o sistema primeiro recupera informações relevantes dos documentos e utiliza esse conteúdo como contexto para gerar a resposta.
-
----
-
-## 🛠️ Tecnologias utilizadas
-
-**Python** • **LangChain** • **Google Gemini** • **ChromaDB** • **Streamlit**
-
-Conceitos aplicados:
-
-`RAG` `LLMs` `Embeddings` `Vector Database` `Semantic Search` `Prompt Engineering`
-
----
-
-## 📂 Estrutura do projeto
-
-```text
-rag-assistant/
-│
-├── assets/          # Imagens do projeto
-├── config/          # Configurações e prompts
-├── documents/       # Documentos utilizados pela aplicação
-├── src/             # Código principal do sistema
-├── tests/           # Testes dos componentes
-│
-├── app.py           # Interface via terminal
-├── web_app.py       # Interface web
-├── ingest.py        # Processamento dos documentos
-├── requirements.txt
-├── .env.example
-└── README.md
-```
-
----
-
-## 🚀 Como executar
-
-### 1. Clone o projeto
-
-```bash
-git clone https://github.com/pcmdevs/rag-assistant.git
-cd rag-assistant
-```
-
-### 2. Instale as dependências
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Configure a API
-
-Crie um arquivo `.env` na raiz do projeto utilizando o `.env.example` como referência.
-
-```env
-GEMINI_API_KEY=your_gemini_api_key_here
-```
-
-> A chave real da API não deve ser adicionada ao GitHub.
-
-### 4. Processe os documentos
-
-```bash
-python ingest.py
-```
-
-### 5. Execute a aplicação
-
-```bash
-streamlit run web_app.py
-```
-
----
-
-## 🧪 Documentos de demonstração
-
-O projeto acompanha documentos fictícios utilizados para demonstrar o funcionamento do sistema.
-
-Eles permitem testar perguntas relacionadas a diferentes contextos sem utilizar informações reais ou confidenciais.
-
----
-
-## 🔮 Próximas melhorias
-
-- Memória de conversa
-- Streaming das respostas
-- Suporte a outros formatos de arquivo
-- Aprimoramento do sistema de recuperação
-- Testes automatizados adicionais
-- Containerização com Docker
-- Deploy público
-
----
-
-## 👨‍💻 Autor
-
-Desenvolvido por **Paulo Cesar** como projeto de portfólio voltado à aplicação prática de Inteligência Artificial, RAG e processamento de documentos.
+Com esse projeto eu trabalhei conceitos como Python, LangChain, Gemini, embeddings, bancos vetoriais, busca semântica, ChromaDB, Streamlit, RAG, tratamento de erros e organização modular de código.
